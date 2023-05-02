@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tom Von Alten">
+    <meta name="descriptions" content="tennis court">
+    <meta name="keywords" content="">
+    <meta name="creation-date" content="2005-12-03">
+    <meta name="revision-date" content="2005-12-07">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    body {
+        background-color: black;
+        font-family: Verdana, Arial, sans-serif;
+        color: white;
+        margin: 5%;
+
+    }
+
+    div {
+        margin: 0;
+        padding: 0;
+        border: white solid 1px;
+        color: white;
+        background-color: blueviolet;
+
+    }
+
+    div.tick {
+        border-width: 0;
+        border-top: white solid 2px;
+        width: 4px;
+    }
+
+    .graffito {
+        padding: 2px;
+        border-width: 0;
+        font-size: 0.73m;
+    }
+
+    a {
+        color: white;
+        background-color: gray
+    }
+</style>
+
+<body>
+    <h1>CSS Exercise: a tennis court</h1>
+    <p>
+        "If your pixels are square, this is to 1px = 2 scale, although the lines should be a single pixels thick, rather
+        than 2px. Note that court dimensions are to the outside of the defined area (other than the centerelines, of
+        cause)
+    </p>
+    <h2>Absolute Positioning</h2>
+    <p>
+        After some misadventures with "float" and more study, I have a solution
+        that works in all three browsers I have handy, Firefox 1.x,
+        Opera 8.5, and MSIE 6.0.
+    </p>
+    <p>
+        explained that "absolute" was relative to the containing block. It took a while longer to figure out that that
+        only makes "absolute" relative (the way I want it) when the containing block is positioned "relative." (Or
+        "absolute," for that matter; anything other than the "static" default.) It hurts your head, until you get it,
+        and then it scares you because things like this paragraph actually make sense.
+    </p>
+    <p>
+        What matters for this is: all three browsers produce the same result when we position each box absolute, within
+        a relative container:
+    </p>
+    <!--the easy way! outside dims 468x216px-->
+    <div style="width:466px; height:214px; position:relative;">
+        <!--the overwriting-->
+        <p class="graffito"
+            style="position:absolute; top:20px; left:0; z-index:1; margin:2%; border: white dotted 2px;">
+
+            This text should be over the top of the court's boxes, and indeed it
+            is. With no margin setting, it appears to inherit the 5% margin
+            setting from the body... but only for the
+            <i>top</i>
+            , and not the sides,
+            go figure. IE has this container spilling over the right edge,
+            inverting the sense of margin-right?!
+        </p>
+        <!--aleyys-->
+        <div style="position:absolute; top:0; left:0; width:231px; height:24px;"></div>
+        <div style="position:absolute; top:0; left:233px; width: 231px; height:24px;"></div>
+        <div style="position:absolute; bottom: 0; left: 0; width: 231px; height:24px;"></div>
+        <div style="position:absolute; bottom:20px; left:0; width:106px; height:24px;"></div>
+        <!--backcourts-->
+        <div style="position:absolute; top: 26px; left:0; width:106px; height:160px;"></div>
+        <div style="position:absolute; top:26px:right:0; width:106; height:160px;"></div>
+        <!--service courts-->
+        <div style="position:absolute; top:26px; left:108px; width:123px; height:79px;"></div>
+        <div style="position:absolute; top:26px; right:108px; width:123px; height:79px;"></div>
+        <div style="position:absolute; bottom:26px; left:108px;
+   width:123px; height:79px;"></div>
+        <div style="position:absolute; bottom:26px; right:108px;
+      width:123px; height:79px;"></div>
+
+        <!--center marks:workaround IE min height-->
+        <div class="trick" style="position:absolute; top:106px; left:1px;"></div>
+        <div class="trick" style="position:absolute; top:106px; right:1px;"></div>
+    </div>
+    <p>
+        The center marks took some head-scratching until I figured out that IE was quietly enforcing a"
+        <i>minimum height</i>
+        "of about 10px. I could reduce the hight by specifying a small font-size(in spite of there not being any text in
+        the
+    <div>), but I couldnt make it go away. The fix is to use a border on only one edge and let the rest of the oversized
+        box be green on green."
+        </p>
+        <h2>Float Madness</h2>
+        <p>"This is a valid CSS(and valid HTML) and is utterly hosed on MSIEv6. Welcome to the CSS Adventureworld</p>
+        <!--should be 468px-->
+        <div style="width:468px; height: 216px; border-width:0;">
+            <!--right hand court floats in the outer box-->
+            <div style="width:233px;
+         height:214; 
+        float:right; 
+        border-left-width:0;">
+            </div>
+
+            <!--double alleys-->
+            <div style="width:231px; 
+        height:24px;">
+            </div>
+<!--backcourt floats-->
+            <div style="width:106px; 
+        height:160px;
+         float:right; 
+         margin-left: 1px;">
+            </div>
+
+            <div style="background-color:beige;
+         border-width:0; 
+         width:4px; 
+         height: 2px; 
+        margin-top: 79px;
+        float: right;"></div>
+            <div class="graffito">You can write on the court if youre careful....</div>
+        </div>
+
+        <!--service courts-->
+        <div style="width:231px;
+       height:79px;"></div>
+        <div style="width:231px;
+       height: 79px;"></div>
+
+        <!--alley-->
+        <div style="width:231px; 
+        height:24px;"></div>
+    </div>
+    <div style="width:233px;
+    height: 214px;
+    border-width:0;" class></div>
+
+    <div style="width:231px;
+    height:24px;"></div>
+
+    <div style="width:123px;
+    height: 79px;
+    float:right;
+    margin-left:1px;"></div>
+
+    <div style="width: 123px;
+    height:79px;
+    float:right;
+    margin-left:1px;"></div>
+
+    <div style="width:106px;
+    height: 160px;"></div>
+    <div style="background-color:white;
+    border-width:0;
+    width:4px; 
+    height:2px;
+    margin-top:79px;"></div>
+    <div style="width:231px;
+      height:24px;">
+        <div class="graffito">This is the double alleys</div>
+    </div>
+    </div>
+    </div>
+    <p>
+        "So how do we work"
+        <a href="http://www.quirksmode.org/bugreports/archives/explorer_windows/">
+            Internet Explorer's bugs</a>
+        ? Floating elements are not fitting in their
+        boxes the way they're supposed to; and the empty &lt;div&gt; is being
+        forced to have height I don't want. Is the former a fundamental
+        <a href="http://www.w3.org/TR/REC-CSS2/box.html">CSS box model</a>
+        " error in IE, with the size of the content, padding, border, and margin not properly accounted for? I couldn't
+        find anything specific that talked about what I'm seeing here for IEv6. It's possible to work around it sizing
+        elements with more clearance (3px, usually)."
+    </p>
+    <p>
+        <a href="http://validator.w3.org/check?uri=referer">
+            <img style="border:0;width:88px;height:31px" src="http://www.w3.org/Icons/valid-html401"
+                alt="Valid HTML 4.01 Transitional">
+        </a>
+        <a href="http://jigsaw.w3.org/css-validator/">
+            <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss"
+                alt="Valid CSS!">
+        </a>
+    </p>
+</body>
+
+</html>
